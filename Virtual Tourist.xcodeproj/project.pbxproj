@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4B2A66E561002925BD /* AppDelegate.swift */; };
 		FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */; };
-		FCBC2B502A66E561002925BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4F2A66E561002925BD /* ViewController.swift */; };
 		FCBC2B532A66E561002925BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B512A66E561002925BD /* Main.storyboard */; };
 		FCBC2B552A66E564002925BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B542A66E564002925BD /* Assets.xcassets */; };
 		FCBC2B582A66E564002925BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B562A66E564002925BD /* LaunchScreen.storyboard */; };
+		FCBC2B602A67F1C4002925BD /* TravelLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B5F2A67F1C4002925BD /* TravelLocationViewController.swift */; };
+		FCBC2B632A67F2BF002925BD /* TravelLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B622A67F2BF002925BD /* TravelLocationViewModel.swift */; };
+		FCBC2B662A6820CF002925BD /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FCBC2B482A66E561002925BD /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC2B4B2A66E561002925BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FCBC2B4F2A66E561002925BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FCBC2B522A66E561002925BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FCBC2B542A66E564002925BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCBC2B572A66E564002925BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCBC2B592A66E564002925BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCBC2B5F2A67F1C4002925BD /* TravelLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationViewController.swift; sourceTree = "<group>"; };
+		FCBC2B622A67F2BF002925BD /* TravelLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationViewModel.swift; sourceTree = "<group>"; };
+		FCBC2B652A6820CF002925BD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,41 @@
 		FCBC2B4A2A66E561002925BD /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				FCBC2B682A6820E6002925BD /* Database */,
+				FCBC2B612A67F2A7002925BD /* Travel Location */,
 				FCBC2B4B2A66E561002925BD /* AppDelegate.swift */,
 				FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */,
-				FCBC2B4F2A66E561002925BD /* ViewController.swift */,
 				FCBC2B512A66E561002925BD /* Main.storyboard */,
 				FCBC2B542A66E564002925BD /* Assets.xcassets */,
 				FCBC2B562A66E564002925BD /* LaunchScreen.storyboard */,
 				FCBC2B592A66E564002925BD /* Info.plist */,
 			);
 			path = "Virtual Tourist";
+			sourceTree = "<group>";
+		};
+		FCBC2B612A67F2A7002925BD /* Travel Location */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC2B5F2A67F1C4002925BD /* TravelLocationViewController.swift */,
+				FCBC2B622A67F2BF002925BD /* TravelLocationViewModel.swift */,
+			);
+			path = "Travel Location";
+			sourceTree = "<group>";
+		};
+		FCBC2B672A6820D5002925BD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		FCBC2B682A6820E6002925BD /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC2B672A6820D5002925BD /* CoreData */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +168,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCBC2B502A66E561002925BD /* ViewController.swift in Sources */,
 				FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */,
+				FCBC2B662A6820CF002925BD /* VirtualTourist.xcdatamodeld in Sources */,
 				FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */,
+				FCBC2B602A67F1C4002925BD /* TravelLocationViewController.swift in Sources */,
+				FCBC2B632A67F2BF002925BD /* TravelLocationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +390,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FCBC2B652A6820CF002925BD /* VirtualTourist.xcdatamodel */,
+			);
+			currentVersion = FCBC2B652A6820CF002925BD /* VirtualTourist.xcdatamodel */;
+			path = VirtualTourist.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FCBC2B402A66E561002925BD /* Project object */;
 }

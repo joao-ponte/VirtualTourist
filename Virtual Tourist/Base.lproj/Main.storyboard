@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gw4-Rt-4jk">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="872" y="-1"/>
         </scene>
-        <!--View Controller-->
+        <!--Travel Location View Controller-->
         <scene sceneID="Lls-T7-S2C">
             <objects>
-                <viewController id="Map-qo-nUS" sceneMemberID="viewController">
+                <viewController id="Map-qo-nUS" customClass="TravelLocationViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lcP-yX-AUo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,6 +50,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ozx-tK-wpP"/>
                     <connections>
+                        <outlet property="mapView" destination="To1-6G-vbY" id="LvS-My-GVf"/>
                         <segue destination="HWL-c3-CSa" kind="show" identifier="toPhotoAlbum" id="sT6-Eg-5QT"/>
                     </connections>
                 </viewController>
