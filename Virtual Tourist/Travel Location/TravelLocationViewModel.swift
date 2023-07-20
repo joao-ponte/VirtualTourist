@@ -25,5 +25,10 @@ class TravelLocationViewModel {
     private func loadPins() {
         pins = dataControllerManager.fetchPins()
     }
+    
+    func savePins() {
+        dataControllerManager.savePins(pins)
+    }
 }
+
 

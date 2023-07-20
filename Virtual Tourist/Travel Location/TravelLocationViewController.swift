@@ -56,6 +56,14 @@ private extension TravelLocationViewController {
     
     func addPin(at coordinate: CLLocationCoordinate2D) {
         viewModel.addPin(at: coordinate)
+        addPinToMap(at: coordinate)
+        viewModel.savePins()
+    }
+    
+    func addPinToMap(at coordinate: CLLocationCoordinate2D) {
+        let newPin = MKPointAnnotation()
+        newPin.coordinate = coordinate
+        mapView.addAnnotation(newPin)
     }
     
     func populateMapWithSavedPins() {
