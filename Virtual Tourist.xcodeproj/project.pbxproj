@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC25DB352A692E0A00EE351F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB342A692E0A00EE351F /* DataController.swift */; };
+		FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB362A69362500EE351F /* DataControllerManager.swift */; };
 		FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4B2A66E561002925BD /* AppDelegate.swift */; };
 		FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */; };
 		FCBC2B532A66E561002925BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B512A66E561002925BD /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FC25DB342A692E0A00EE351F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		FC25DB362A69362500EE351F /* DataControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerManager.swift; sourceTree = "<group>"; };
 		FCBC2B482A66E561002925BD /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC2B4B2A66E561002925BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */,
+				FC25DB342A692E0A00EE351F /* DataController.swift */,
+				FC25DB362A69362500EE351F /* DataControllerManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -169,6 +175,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */,
+				FC25DB352A692E0A00EE351F /* DataController.swift in Sources */,
+				FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */,
 				FCBC2B662A6820CF002925BD /* VirtualTourist.xcdatamodeld in Sources */,
 				FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */,
 				FCBC2B602A67F1C4002925BD /* TravelLocationViewController.swift in Sources */,
