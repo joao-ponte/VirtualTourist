@@ -9,15 +9,21 @@ import Foundation
 import MapKit
 
 class TravelLocationViewModel {
+    var pins: [Pin] = []
+    let dataControllerManager: DataControllerManager
     
-    var pins: [MKPointAnnotation] = []
-    
-    func addPin(at coordinate: CLLocationCoordinate2D) {
-        let newPin = MKPointAnnotation()
-        newPin.coordinate = coordinate
-        pins.append(newPin)
-        
-        print(pins)
+    init(dataControllerManager: DataControllerManager) {
+        self.dataControllerManager = dataControllerManager
+        loadPins()
     }
     
+    func addPin(at coordinate: CLLocationCoordinate2D) {
+        dataControllerManager.savePin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        loadPins()
+    }
+    
+    private func loadPins() {
+        pins = dataControllerManager.fetchPins()
+    }
 }
+

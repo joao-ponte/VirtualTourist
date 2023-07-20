@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class TravelLocationViewController: UIViewController, MKMapViewDelegate {
+class TravelLocationViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     var viewModel: TravelLocationViewModel!
@@ -16,45 +16,57 @@ class TravelLocationViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = TravelLocationViewModel()
-        mapView.delegate = self
+        let dataControllerManager = DataControllerManager.shared
+        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager)
         
+        setupMap()
         setupMapGesture()
+        populateMapWithSavedPins()
+    }
+}
+
+// MARK: - MKMapViewDelegate
+extension TravelLocationViewController: MKMapViewDelegate {
+}
+
+// MARK: - Private Helpers
+private extension TravelLocationViewController {
+    func setupMap() {
+        mapView.delegate = self
     }
     
-    private func setupMapGesture() {
+    func setupMapGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        longPressGesture.minimumPressDuration = 0.5 // Adjust as needed
+        longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
     }
     
-    @objc private func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
             handleLongPressBegan(gestureRecognizer)
         }
     }
     
-    private func handleLongPressBegan(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    func handleLongPressBegan(_ gestureRecognizer: UILongPressGestureRecognizer) {
         let touchPoint = gestureRecognizer.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
         addPin(at: coordinate)
     }
     
-    private func addPin(at coordinate: CLLocationCoordinate2D) {
+    func addPin(at coordinate: CLLocationCoordinate2D) {
         viewModel.addPin(at: coordinate)
-        
-        // Add the new pin to the map
-        let newPin = MKPointAnnotation()
-        newPin.coordinate = coordinate
-        mapView.addAnnotation(newPin)
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // Handle custom annotation views if needed
-        return nil
+    func populateMapWithSavedPins() {
+        for pin in viewModel.pins {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+            mapView.addAnnotation(annotation)
+        }
     }
 }
+
 
 
 
