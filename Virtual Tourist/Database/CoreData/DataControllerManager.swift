@@ -45,9 +45,11 @@ class DataControllerManager {
         saveContext()
     }
     
+    func savePins(_ pins: [Pin]) {
+        saveContext()
+    }
+    
     func load(completion: (() -> Void)? = nil) {
         dataController.load(completion: completion)
     }
 }
-
-
