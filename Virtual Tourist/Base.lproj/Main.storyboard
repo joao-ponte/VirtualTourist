@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="1695" y="-1"/>
         </scene>
-        <!--View Controller-->
+        <!--Photo Galery View Controller-->
         <scene sceneID="9mT-XX-9cD">
             <objects>
-                <viewController id="HWL-c3-CSa" sceneMemberID="viewController">
+                <viewController id="HWL-c3-CSa" customClass="PhotoGaleryViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JBy-vw-8ws">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +107,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmh-1R-pmz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmh-1R-pmz" userLabel="New Collection Button">
                                 <rect key="frame" x="124.66666666666669" y="778" width="144" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="Lee-xz-kHG"/>
@@ -133,6 +133,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gdZ-Iu-Eah"/>
+                    <connections>
+                        <outlet property="collectionView" destination="UbR-vV-4sg" id="TW1-SF-cV7"/>
+                        <outlet property="flowLayout" destination="nN7-nW-grS" id="lOZ-ow-g7L"/>
+                        <outlet property="label" destination="uGf-PG-m8s" id="y9Q-vh-cVH"/>
+                        <outlet property="mapView" destination="yCx-Ss-BMJ" id="EMs-Zo-Zb1"/>
+                        <outlet property="newCollection" destination="Qmh-1R-pmz" id="ZhE-hg-EdD"/>
+                        <outlet property="noImageView" destination="qq9-bS-0yw" id="HBT-qK-SXT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aXC-3e-yBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
