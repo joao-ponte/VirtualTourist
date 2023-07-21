@@ -23,10 +23,18 @@ class TravelLocationViewController: UIViewController {
         setupMapGesture()
         populateMapWithSavedPins()
     }
+    
+    
 }
 
 // MARK: - MKMapViewDelegate
 extension TravelLocationViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? MKPointAnnotation {
+            performSegue(withIdentifier: "toPhotoAlbum", sender: annotation)
+        }
+    }
 }
 
 // MARK: - Private Helpers
@@ -75,7 +83,13 @@ private extension TravelLocationViewController {
     }
 }
 
-
-
-
-
+// MARK: - Prepare for Segue
+extension TravelLocationViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPhotoAlbum",
+           let photoGalleryViewController = segue.destination as? PhotoGalleryViewController,
+           let annotation = sender as? MKPointAnnotation {
+            photoGalleryViewController.selectedAnnotation = annotation
+        }
+    }
+}

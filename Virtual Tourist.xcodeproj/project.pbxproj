@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		FC25DB352A692E0A00EE351F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB342A692E0A00EE351F /* DataController.swift */; };
 		FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB362A69362500EE351F /* DataControllerManager.swift */; };
-		FC25DB3F2A69460800EE351F /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB3E2A69460800EE351F /* VirtualTouristUITests.swift */; };
-		FC25DB412A69460800EE351F /* VirtualTouristUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB402A69460800EE351F /* VirtualTouristUITestsLaunchTests.swift */; };
 		FC25DB4C2A69715100EE351F /* PhotoGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB4B2A69715100EE351F /* PhotoGalleryViewController.swift */; };
 		FC25DB4E2A69717B00EE351F /* PhotoGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB4D2A69717B00EE351F /* PhotoGalleryViewModel.swift */; };
+		FC25DB972A6A9BCA00EE351F /* PhotoGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25DB962A6A9BCA00EE351F /* PhotoGalleryCollectionViewCell.swift */; };
 		FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4B2A66E561002925BD /* AppDelegate.swift */; };
 		FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */; };
 		FCBC2B532A66E561002925BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B512A66E561002925BD /* Main.storyboard */; };
@@ -37,10 +36,9 @@
 		FC25DB342A692E0A00EE351F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FC25DB362A69362500EE351F /* DataControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerManager.swift; sourceTree = "<group>"; };
 		FC25DB3C2A69460800EE351F /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC25DB3E2A69460800EE351F /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
-		FC25DB402A69460800EE351F /* VirtualTouristUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FC25DB4B2A69715100EE351F /* PhotoGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewController.swift; sourceTree = "<group>"; };
 		FC25DB4D2A69717B00EE351F /* PhotoGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewModel.swift; sourceTree = "<group>"; };
+		FC25DB962A6A9BCA00EE351F /* PhotoGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCBC2B482A66E561002925BD /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC2B4B2A66E561002925BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,15 +69,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FC25DB3D2A69460800EE351F /* VirtualTouristUITests */ = {
-			isa = PBXGroup;
-			children = (
-				FC25DB3E2A69460800EE351F /* VirtualTouristUITests.swift */,
-				FC25DB402A69460800EE351F /* VirtualTouristUITestsLaunchTests.swift */,
-			);
-			path = VirtualTouristUITests;
-			sourceTree = "<group>";
-		};
 		FC25DB492A69711800EE351F /* Photo Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +82,7 @@
 			children = (
 				FC25DB4B2A69715100EE351F /* PhotoGalleryViewController.swift */,
 				FC25DB4D2A69717B00EE351F /* PhotoGalleryViewModel.swift */,
+				FC25DB962A6A9BCA00EE351F /* PhotoGalleryCollectionViewCell.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -101,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				FCBC2B4A2A66E561002925BD /* Virtual Tourist */,
-				FC25DB3D2A69460800EE351F /* VirtualTouristUITests */,
 				FCBC2B492A66E561002925BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -259,8 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC25DB3F2A69460800EE351F /* VirtualTouristUITests.swift in Sources */,
-				FC25DB412A69460800EE351F /* VirtualTouristUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +257,7 @@
 			files = (
 				FC25DB4C2A69715100EE351F /* PhotoGalleryViewController.swift in Sources */,
 				FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */,
+				FC25DB972A6A9BCA00EE351F /* PhotoGalleryCollectionViewCell.swift in Sources */,
 				FC25DB352A692E0A00EE351F /* DataController.swift in Sources */,
 				FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */,
 				FC25DB4E2A69717B00EE351F /* PhotoGalleryViewModel.swift in Sources */,
