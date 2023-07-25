@@ -31,11 +31,13 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionImages", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
         
         return cell
     }
 
-
+    @IBAction func createNewCollection(_ sender: Any) {
+    }
+    
     
 }
