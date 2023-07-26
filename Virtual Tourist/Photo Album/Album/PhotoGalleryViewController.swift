@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource {
+class PhotoGalleryViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -17,27 +17,29 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     var selectedAnnotation: MKAnnotation?
-    var viewModel: PhotoGalleryViewModel!
+    var viewModel: PhotoGalleryViewModel?
+    var dataSource: PhotoGalleryDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let annotation = selectedAnnotation {
-                }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.countImages()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
-        
-        return cell
+            // Initialize your view model here.
+//            viewModel = PhotoGalleryViewModel(annotation: annotation)
+            
+            // Ensure that the viewModel is not nil before proceeding.
+            if let viewModel = viewModel {
+                dataSource = PhotoGalleryDataSource(viewModel: viewModel)
+                collectionView.dataSource = dataSource
+                collectionView.reloadData()
+            } else {
+                print("Failed to initialize viewModel.")
+            }
+        }
     }
 
     @IBAction func createNewCollection(_ sender: Any) {
+        // Implement the logic for creating a new collection here, if needed.
     }
-    
-    
 }
+

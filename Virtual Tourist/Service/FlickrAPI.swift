@@ -37,14 +37,32 @@ class FlickrAPI: ImageRepositoryProtocol {
     func getImages(latitude: Double,
                    longitude: Double,
                    pageNumber: Int,
-                   completion: @escaping (PhotosResponse?, Error?) -> Void) {
+                   completion: @escaping ([URL]?, Error?) -> Void) {
         let endpoint = FlickrAPI.EndPoints.getGeoPhotos(latitude: latitude, longitude: longitude, pageNumber: pageNumber)
         let url = endpoint.url
-        HttpClient().taskForGetRequest(url: url, response: PhotosResponse.self) { (response, error) in
+        HttpClient().taskForGetRequest(url: url, response: PhotosResponse.self) { [weak self] (response, error) in
             DispatchQueue.main.async {
-                completion(response, error)
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    let imageUrls = self?.extractImageUrls(from: response) ?? []
+                    completion(imageUrls, nil)
+                }
             }
         }
     }
+
+        private func extractImageUrls(from photosResponse: PhotosResponse?) -> [URL] {
+            guard let photosResponse = photosResponse else {
+                return []
+            }
+            
+            let imageUrls = photosResponse.photos.photo.compactMap { photo in
+                return photo.imageUrl
+            }
+            
+            return imageUrls
+        }
+    
 }
 

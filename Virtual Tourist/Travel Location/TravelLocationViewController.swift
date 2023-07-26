@@ -17,12 +17,14 @@ class TravelLocationViewController: UIViewController {
         super.viewDidLoad()
         
         let dataControllerManager = DataControllerManager.shared
-        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager)
+        let flickrAPI = FlickrAPI()
+        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager, imageRepository: flickrAPI)
         
         setupMap()
         setupMapGesture()
         populateMapWithSavedPins()
     }
+    
     
     
 }
@@ -65,6 +67,7 @@ private extension TravelLocationViewController {
     func addPin(at coordinate: CLLocationCoordinate2D) {
         viewModel.addPin(at: coordinate)
         addPinToMap(at: coordinate)
+        
         viewModel.savePins()
     }
     

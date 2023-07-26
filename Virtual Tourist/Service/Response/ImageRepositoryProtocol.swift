@@ -8,11 +8,9 @@
 import Foundation
 
 protocol ImageRepositoryProtocol {
-   
     func getImages(latitude: Double,
-                            longitude: Double,
-                            pageNumber: Int,
-                            completion: @escaping (PhotosResponse?, Error?) -> Void)
-    
+                   longitude: Double,
+                   pageNumber: Int,
+                   completion: @escaping ([URL]?, Error?) -> Void)
 }
 
