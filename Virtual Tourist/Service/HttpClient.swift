@@ -14,25 +14,24 @@ class HttpClient {
                                                     completion: @escaping (ResponseType?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             guard let data = data else {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+                completion(nil, error)
                 return
             }
-            let decoder = JSONDecoder()
             
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Received JSON Data:")
+                print(jsonString)
+            }
+            
+            let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: data)
-                DispatchQueue.main.async {
-                    completion(responseObject, nil)
-                    print(responseObject)
-                }
+                completion(responseObject, nil)
             } catch {
                 completion(nil, error)
-                print(error)
             }
         }
         task.resume()
     }
-    
 }
+
