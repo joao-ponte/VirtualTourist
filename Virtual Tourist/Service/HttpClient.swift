@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HttpClient {
+class HttpClient: HttpClientProtocol {
     
     func taskForGetRequest<ResponseType: Decodable>(url: URL,
                                                     response: ResponseType.Type,

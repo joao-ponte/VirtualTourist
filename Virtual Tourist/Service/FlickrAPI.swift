@@ -9,9 +9,9 @@ import Foundation
 
 class FlickrAPI: ImageRepositoryProtocol {
     
-    let client: HttpClient
+    let client: HttpClientProtocol
     
-    init(client: HttpClient = HttpClient()) {
+    init(client: HttpClientProtocol = HttpClient()) {
         self.client = client
     }
     

@@ -11,7 +11,7 @@ import MapKit
 final class TravelLocationViewModel {
     
     private let imageRepository: ImageRepositoryProtocol
-    private var pins: [Pin] = []
+    var pins: [Pin] = []
     private let dataControllerManager: DataControllerManager
     
     //injection of FlickrAPI in the viewModel, using default paramenter.
