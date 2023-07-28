@@ -8,19 +8,21 @@
 import Foundation
 import MapKit
 
-class TravelLocationViewModel {
+final class TravelLocationViewModel {
     
-    let imageRepository: ImageRepositoryProtocol
-    var pins: [Pin] = []
-    let dataControllerManager: DataControllerManager
+    private let imageRepository: ImageRepositoryProtocol
+    private var pins: [Pin] = []
+    private let dataControllerManager: DataControllerManager
     
-    init(dataControllerManager: DataControllerManager, imageRepository: ImageRepositoryProtocol) {
+    //injection of FlickrAPI in the viewModel, using default paramenter.
+    init(dataControllerManager: DataControllerManager, imageRepository: ImageRepositoryProtocol = FlickrAPI() ) {
+        
         self.dataControllerManager = dataControllerManager
         self.imageRepository = imageRepository
         loadPins()
     }
     
-    func addPin(at coordinate: CLLocationCoordinate2D) {
+     func addPin(at coordinate: CLLocationCoordinate2D) {
         dataControllerManager.savePin(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
         getImages(latitude: coordinate.latitude, longitude: coordinate.longitude) { result in

@@ -9,6 +9,12 @@ import Foundation
 
 class FlickrAPI: ImageRepositoryProtocol {
     
+    let client: HttpClient
+    
+    init(client: HttpClient = HttpClient()) {
+        self.client = client
+    }
+    
     enum EndPoints {
         static let base = "https://api.flickr.com/services/rest/"
         static let apiKey = "6236676ee91c0152a0d2cbe6ea33a0b6"
@@ -40,7 +46,7 @@ class FlickrAPI: ImageRepositoryProtocol {
                    completion: @escaping ([URL]?, Error?) -> Void) {
         let endpoint = FlickrAPI.EndPoints.getGeoPhotos(latitude: latitude, longitude: longitude, pageNumber: pageNumber)
         let url = endpoint.url
-        HttpClient().taskForGetRequest(url: url, response: PhotosResponse.self) { [weak self] (response, error) in
+        client.taskForGetRequest(url: url, response: PhotosResponse.self) { [weak self] (response, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     completion(nil, error)

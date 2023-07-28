@@ -17,8 +17,7 @@ class TravelLocationViewController: UIViewController {
         super.viewDidLoad()
         
         let dataControllerManager = DataControllerManager.shared
-        let flickrAPI = FlickrAPI()
-        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager, imageRepository: flickrAPI)
+        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager)
         
         setupMap()
         setupMapGesture()
@@ -38,7 +37,6 @@ extension TravelLocationViewController: MKMapViewDelegate {
         }
     }
 }
-
 // MARK: - Private Helpers
 private extension TravelLocationViewController {
     func setupMap() {
