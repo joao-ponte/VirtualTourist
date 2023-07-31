@@ -11,11 +11,15 @@ import MapKit
 class PhotoGalleryViewModel {
     
     
-    private let imageCollection = ["Image1", "Image2"]
+    private let imageCollection: [URL]
     
-    func getImages(index: Int) -> String {
-        return imageCollection[index]
+    init(imageUrls: [URL]) {
+        self.imageCollection = imageUrls
     }
+    
+//    func getImages(index: Int) -> String {
+//        return imageCollection[index]
+//    }
     
     func countImages() -> Int {
         imageCollection.count

@@ -22,19 +22,28 @@ final class TravelLocationViewModel {
         loadPins()
     }
     
-     func addPin(at coordinate: CLLocationCoordinate2D) {
-        dataControllerManager.savePin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    func addPin(at coordinate: CLLocationCoordinate2D) {
+        dataControllerManager.createPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
-        getImages(latitude: coordinate.latitude, longitude: coordinate.longitude) { result in
+        // Fetch the images
+        getImages(latitude: coordinate.latitude, longitude: coordinate.longitude) { [weak self] result in
             switch result {
             case .success(let imageUrls):
-                for url in imageUrls {
-                            print(url)
-                        }
+                // Call the addPin method with the imageUrls
+                self?.addPin(at: coordinate, imageUrls: imageUrls)
             case .failure(let error):
+                // Handle the error if needed
                 print("Error fetching images: \(error)")
             }
         }
+        
+        loadPins()
+    }
+    
+    private func addPin(at coordinate: CLLocationCoordinate2D, imageUrls: [URL]) {
+        // Save the imageUrls to the data model (if needed).
+        // For example, you can store them in the `Pin` model.
+        // pin.imageUrls = imageUrls
         
         loadPins()
     }
