@@ -1,22 +1,30 @@
+// DataControllerProtocol.swift
+// Virtual Tourist
 //
-//  DataControllerProtocol.swift
-//  Virtual Tourist
-//
-//  Created by João Ponte on 31/07/2023.
-//
+// Created by João Ponte on 31/07/2023.
 
 import Foundation
+import CoreData
 
 protocol DataControllerProtocol {
-    func saveContext() throws
-    func fetchPins() throws -> [Pin]
-    func createPin(latitude: Double, longitude: Double) throws
-    func createAlbum(for pin: Pin) throws -> Album
-    func deleteImages(for album: Album) throws
-    func createImage(for album: Album, blob: Data, imageUrl: String, id: Int64) throws
-    func getImages(for albumID: UUID) throws -> [Image]?
-    func deleteImage(_ image: Image) throws
-    func savePins(_ pins: [Pin]) throws
-    func load(completion: (() -> Void)?) throws
-    func saveImages(imageUrls: [URL], for pin: Pin) throws
+    func saveContext()
+    
+    // MARK: - Pin Management
+    func fetchPins(completion: @escaping (Result<[Pin], Error>) -> Void)
+    func createPin(latitude: Double, longitude: Double) -> Pin
+    
+    // MARK: - Album Management
+    func createAlbum(for pin: Pin) -> Album
+    func deleteImages(for album: Album)
+    func fetchAlbums() -> Result<[Album], Error>
+    
+    // MARK: - Image Management
+    func createImage(for album: Album, imageUrl: URL)
+    func getImages(for albumID: UUID) -> [Image]?
+    func fetchImages() -> Result<[Image], Error>
+    func deleteImage(_ image: Image)
+    func saveImages(imageUrls: [URL], for pin: Pin)
+    
+    // MARK: - Data Loading
+    func load(completion: (() -> Void)?)
 }

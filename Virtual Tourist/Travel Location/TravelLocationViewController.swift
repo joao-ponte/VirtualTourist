@@ -16,27 +16,28 @@ class TravelLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dataControllerManager = DataControllerManager.shared
+        let dataControllerManager = DataControllerManager(modelName: "VirtualTourist")
         viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager)
+        viewModel.delegate = self // Assign the delegate to receive updates
         
         setupMap()
         setupMapGesture()
-        populateMapWithSavedPins()
+        viewModel.fetchSavedPins()
     }
-    
-    
-    
 }
 
-// MARK: - MKMapViewDelegate
-extension TravelLocationViewController: MKMapViewDelegate {
+// MARK: - TravelLocationViewModelDelegate
+extension TravelLocationViewController: TravelLocationViewModelDelegate {
+    func addAnnotation(_ annotation: MKPointAnnotation) {
+        mapView.addAnnotation(annotation)
+    }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let annotation = view.annotation as? MKPointAnnotation {
-            performSegue(withIdentifier: "toPhotoAlbum", sender: annotation)
-        }
+    func reloadMapAnnotations(_ annotations: [MKPointAnnotation]) {
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(annotations)
     }
 }
+
 // MARK: - Private Helpers
 private extension TravelLocationViewController {
     func setupMap() {
@@ -63,10 +64,9 @@ private extension TravelLocationViewController {
     }
     
     func addPin(at coordinate: CLLocationCoordinate2D) {
-        viewModel.addPin(at: coordinate)
+        viewModel.newAlbumAtLocation(at: coordinate)
         addPinToMap(at: coordinate)
         
-        viewModel.savePins()
     }
     
     func addPinToMap(at coordinate: CLLocationCoordinate2D) {
@@ -76,10 +76,16 @@ private extension TravelLocationViewController {
     }
     
     func populateMapWithSavedPins() {
-        for pin in viewModel.pins {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-            mapView.addAnnotation(annotation)
+            mapView.removeAnnotations(mapView.annotations) // Clear existing pins before adding saved pins
+            mapView.addAnnotations(viewModel.pins)
+        }
+}
+
+extension TravelLocationViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? MKPointAnnotation {
+            performSegue(withIdentifier: "toPhotoAlbum", sender: annotation)
         }
     }
 }
@@ -90,7 +96,9 @@ extension TravelLocationViewController {
         if segue.identifier == "toPhotoAlbum",
            let photoGalleryViewController = segue.destination as? PhotoGalleryViewController,
            let annotation = sender as? MKPointAnnotation {
-            photoGalleryViewController.selectedAnnotation = annotation
+            if let pin = viewModel.pinObjects.first(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
+                photoGalleryViewController.viewModel = viewModel.createPhotoGalleryViewModel(for: pin)
+            }
         }
     }
 }

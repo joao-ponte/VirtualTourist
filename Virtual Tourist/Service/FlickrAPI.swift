@@ -53,6 +53,7 @@ class FlickrAPI: ImageRepositoryProtocol {
                 } else {
                     let imageUrls = self?.extractImageUrls(from: response) ?? []
                     completion(imageUrls, nil)
+                    print("TEST IF I CREATE THE URL ARRAY🤯 \(imageUrls) ")
                 }
             }
         }

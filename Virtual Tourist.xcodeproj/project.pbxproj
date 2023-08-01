@@ -18,6 +18,8 @@
 		FCA5074A2A73BF5F00359993 /* HttpClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA507492A73BF5F00359993 /* HttpClientProtocol.swift */; };
 		FCA5074C2A73C05100359993 /* HttpClientFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA5074B2A73C05100359993 /* HttpClientFake.swift */; };
 		FCA5074E2A77C76200359993 /* DataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA5074D2A77C76200359993 /* DataControllerProtocol.swift */; };
+		FCA507502A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */; };
+		FCA507522A794DD700359993 /* CoreDataPrintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA507512A794DD700359993 /* CoreDataPrintViewModel.swift */; };
 		FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4B2A66E561002925BD /* AppDelegate.swift */; };
 		FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */; };
 		FCBC2B532A66E561002925BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B512A66E561002925BD /* Main.storyboard */; };
@@ -55,6 +57,8 @@
 		FCA507492A73BF5F00359993 /* HttpClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientProtocol.swift; sourceTree = "<group>"; };
 		FCA5074B2A73C05100359993 /* HttpClientFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientFake.swift; sourceTree = "<group>"; };
 		FCA5074D2A77C76200359993 /* DataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerProtocol.swift; sourceTree = "<group>"; };
+		FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extensions.swift"; sourceTree = "<group>"; };
+		FCA507512A794DD700359993 /* CoreDataPrintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPrintViewModel.swift; sourceTree = "<group>"; };
 		FCBC2B482A66E561002925BD /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC2B4B2A66E561002925BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				FCBC2B542A66E564002925BD /* Assets.xcassets */,
 				FCBC2B562A66E564002925BD /* LaunchScreen.storyboard */,
 				FCBC2B592A66E564002925BD /* Info.plist */,
+				FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */,
 			);
 			path = "Virtual Tourist";
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 				FC25DB362A69362500EE351F /* DataControllerManager.swift */,
 				FCA5074D2A77C76200359993 /* DataControllerProtocol.swift */,
 				FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */,
+				FCA507512A794DD700359993 /* CoreDataPrintViewModel.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				FC25DB352A692E0A00EE351F /* CoreDataStack.swift in Sources */,
 				FCA507442A712E8400359993 /* PhotosResult.swift in Sources */,
 				FCF21C622A6FD11B006587B9 /* FlickrAPI.swift in Sources */,
+				FCA507502A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift in Sources */,
 				FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */,
 				FCA507422A71140900359993 /* PhotosResponse.swift in Sources */,
 				FC25DB4E2A69717B00EE351F /* PhotoGalleryViewModel.swift in Sources */,
@@ -329,6 +336,7 @@
 				FCF21C5D2A6FC038006587B9 /* PhotoGalleryCell.swift in Sources */,
 				FCBC2B602A67F1C4002925BD /* TravelLocationViewController.swift in Sources */,
 				FCBC2B632A67F2BF002925BD /* TravelLocationViewModel.swift in Sources */,
+				FCA507522A794DD700359993 /* CoreDataPrintViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

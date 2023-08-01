@@ -10,12 +10,11 @@ import CoreData
 
 class DataControllerManager: DataControllerProtocol {
     
-    static let shared = DataControllerManager()
-    
     private let dataController: CoreDataStack
     
-    private init() {
-        dataController = CoreDataStack(modelName: "VirtualTourist")
+    init(modelName: String) {
+        dataController = CoreDataStack(modelName: modelName)
+        dataController.load()
     }
     
     // MARK: - Pin Management
@@ -30,22 +29,23 @@ class DataControllerManager: DataControllerProtocol {
         }
     }
     
-    func fetchPins() -> [Pin] {
-        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-        
+    func fetchPins(completion: @escaping (Result<[Pin], Error>) -> Void) {
         do {
-            return try dataController.viewContext.fetch(fetchRequest)
+            let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+            let pins = try dataController.viewContext.fetch(fetchRequest)
+            completion(.success(pins))
         } catch {
-            print("Error fetching pins: \(error)")
-            return []
+            completion(.failure(error))
         }
     }
+
     
-    func createPin(latitude: Double, longitude: Double) {
-        let pin = Pin(context: dataController.viewContext)
-        pin.latitude = latitude
-        pin.longitude = longitude
+    func createPin(latitude: Double, longitude: Double) -> Pin {
+        let newPin = Pin(context: dataController.viewContext)
+        newPin.latitude = latitude
+        newPin.longitude = longitude
         saveContext()
+        return newPin
     }
     
     // MARK: - Album Management
@@ -60,29 +60,54 @@ class DataControllerManager: DataControllerProtocol {
     
     func deleteImages(for album: Album) {
         guard let id = album.id else { return }
-        let imageToDelete = getImages(for: id)
+        let imagesToDelete = getImages(for: id) ?? []
         
-        imageToDelete?.forEach { image in
+        for image in imagesToDelete {
             dataController.viewContext.delete(image)
         }
+        
         saveContext()
+    }
+    
+    func fetchAlbums() -> Result<[Album], Error> {
+        do {
+            let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
+            let albums = try dataController.viewContext.fetch(fetchRequest)
+            return .success(albums)
+        } catch {
+            return .failure(error)
+        }
     }
     
     // MARK: - Image Management
     
-    func createImage(for album: Album, blob: Data, imageUrl: String, id: Int64) {
+    func createImage(for album: Album, imageUrl: URL) {
         let newImage = Image(context: dataController.viewContext)
-        newImage.blob = blob
-        newImage.imageUrl = imageUrl
-        newImage.id = id
-        album.addToImages(newImage)
+        newImage.imageUrl = imageUrl.absoluteString
+        newImage.album = album
         saveContext()
     }
     
     func getImages(for albumID: UUID) -> [Image]? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Image")
-        fetchRequest.predicate = NSPredicate(format: "album.id == %@", albumID.uuidString)
-        return try? dataController.viewContext.fetch(fetchRequest) as? [Image]
+        let fetchRequest = NSFetchRequest<Image>(entityName: "Image")
+        fetchRequest.predicate = NSPredicate(format: "album.id == %@", albumID as CVarArg)
+        
+        do {
+            return try dataController.viewContext.fetch(fetchRequest)
+        } catch {
+            print("Error fetching images: \(error)")
+            return nil
+        }
+    }
+    
+    func fetchImages() -> Result<[Image], Error> {
+        do {
+            let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
+            let images = try dataController.viewContext.fetch(fetchRequest)
+            return .success(images)
+        } catch {
+            return .failure(error)
+        }
     }
     
     func deleteImage(_ image: Image) {
@@ -90,22 +115,19 @@ class DataControllerManager: DataControllerProtocol {
         saveContext()
     }
     
-    func savePins(_ pins: [Pin]) {
-        saveContext()
-    }
-    
-    func load(completion: (() -> Void)? = nil) {
-        dataController.load(completion: completion)
-    }
-    
     func saveImages(imageUrls: [URL], for pin: Pin) {
         let album = pin.album ?? createAlbum(for: pin)
         for imageUrl in imageUrls {
-            let image = Image(context: dataController.viewContext)
-            image.imageUrl = imageUrl.absoluteString
-            image.album = album
+            createImage(for: album, imageUrl: imageUrl)
         }
         saveContext()
     }
+    
+    func load(completion: (() -> Void)?) {
+        dataController.load {
+            completion?()
+        }
+    }
 }
+
 
