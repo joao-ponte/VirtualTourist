@@ -84,6 +84,7 @@ private extension TravelLocationViewController {
 extension TravelLocationViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
         if let annotation = view.annotation as? MKPointAnnotation {
             performSegue(withIdentifier: "toPhotoAlbum", sender: annotation)
         }
