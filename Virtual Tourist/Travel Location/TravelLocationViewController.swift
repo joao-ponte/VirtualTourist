@@ -101,6 +101,32 @@ extension TravelLocationViewController {
         }
     }
 }
+//extension TravelLocationViewController {
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "toPhotoAlbum",
+    //            let destinationVC = segue.destination as? PhotoGalleryViewController,
+    //            let annotation = sender as? MKPointAnnotation {
+    //            let photoGalleryViewModel = PhotoGalleryViewModel()
+    //            photoGalleryViewModel.selectedCoordinate = annotation.coordinate
+    //            destinationVC.viewModel = photoGalleryViewModel
+    //        }
+    //    }
+//    extension TravelLocationViewController {
+//        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            if segue.identifier == "toPhotoAlbum",
+//                let destinationNavigationVC = segue.destination as? UINavigationController,
+//                let destinationVC = destinationNavigationVC.topViewController as? PhotoGalleryViewController,
+//                let annotation = sender as? MKPointAnnotation {
+//                let photoGalleryViewModel = PhotoGalleryViewModel()
+//                photoGalleryViewModel.selectedCoordinate = annotation.coordinate
+//                destinationVC.viewModel = photoGalleryViewModel
+//            }
+//        }
+//    }
+
+
+
+
 
 
 
