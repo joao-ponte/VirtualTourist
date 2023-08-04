@@ -20,6 +20,7 @@
 		FCA5074E2A77C76200359993 /* DataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA5074D2A77C76200359993 /* DataControllerProtocol.swift */; };
 		FCA507502A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */; };
 		FCA507522A794DD700359993 /* CoreDataPrintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA507512A794DD700359993 /* CoreDataPrintViewModel.swift */; };
+		FCA507542A7A5DDC00359993 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA507532A7A5DDC00359993 /* UIImageView+Extensions.swift */; };
 		FCBC2B4C2A66E561002925BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4B2A66E561002925BD /* AppDelegate.swift */; };
 		FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */; };
 		FCBC2B532A66E561002925BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC2B512A66E561002925BD /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		FCA5074D2A77C76200359993 /* DataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerProtocol.swift; sourceTree = "<group>"; };
 		FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extensions.swift"; sourceTree = "<group>"; };
 		FCA507512A794DD700359993 /* CoreDataPrintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPrintViewModel.swift; sourceTree = "<group>"; };
+		FCA507532A7A5DDC00359993 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		FCBC2B482A66E561002925BD /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC2B4B2A66E561002925BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCBC2B4D2A66E561002925BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				FCBC2B562A66E564002925BD /* LaunchScreen.storyboard */,
 				FCBC2B592A66E564002925BD /* Info.plist */,
 				FCA5074F2A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift */,
+				FCA507532A7A5DDC00359993 /* UIImageView+Extensions.swift */,
 			);
 			path = "Virtual Tourist";
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				FCA507442A712E8400359993 /* PhotosResult.swift in Sources */,
 				FCF21C622A6FD11B006587B9 /* FlickrAPI.swift in Sources */,
 				FCA507502A781E4800359993 /* CLLocationCoordinate2D+Extensions.swift in Sources */,
+				FCA507542A7A5DDC00359993 /* UIImageView+Extensions.swift in Sources */,
 				FC25DB372A69362500EE351F /* DataControllerManager.swift in Sources */,
 				FCA507422A71140900359993 /* PhotosResponse.swift in Sources */,
 				FC25DB4E2A69717B00EE351F /* PhotoGalleryViewModel.swift in Sources */,

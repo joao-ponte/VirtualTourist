@@ -76,9 +76,9 @@ private extension TravelLocationViewController {
     }
     
     func populateMapWithSavedPins() {
-            mapView.removeAnnotations(mapView.annotations) // Clear existing pins before adding saved pins
-            mapView.addAnnotations(viewModel.pins)
-        }
+        mapView.removeAnnotations(mapView.annotations) // Clear existing pins before adding saved pins
+        mapView.addAnnotations(viewModel.pins)
+    }
 }
 
 extension TravelLocationViewController: MKMapViewDelegate {
@@ -95,11 +95,13 @@ extension TravelLocationViewController: MKMapViewDelegate {
 extension TravelLocationViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoAlbum",
-           let photoGalleryViewController = segue.destination as? PhotoGalleryViewController,
-           let annotation = sender as? MKPointAnnotation {
-            if let pin = viewModel.pinObjects.first(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
-                photoGalleryViewController.viewModel = viewModel.createPhotoGalleryViewModel(for: pin)
-            }
+            let destinationVC = segue.destination as? PhotoGalleryViewController,
+            let annotation = sender as? MKPointAnnotation {
+            destinationVC.selectedCoordinate = annotation.coordinate
         }
     }
 }
+
+
+
+

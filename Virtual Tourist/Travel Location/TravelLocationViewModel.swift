@@ -103,10 +103,6 @@ final class TravelLocationViewModel {
         }
     }
     
-    func createPhotoGalleryViewModel(for pin: Pin) -> PhotoGalleryViewModel? {
-        return PhotoGalleryViewModel(dataControllerManager: dataControllerManager, pin: pin)
-    }
-    
     private func createAnnotation(for coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate

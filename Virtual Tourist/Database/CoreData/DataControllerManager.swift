@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 class DataControllerManager: DataControllerProtocol {
     
@@ -25,6 +26,22 @@ class DataControllerManager: DataControllerProtocol {
                 try dataController.viewContext.save()
             } catch {
                 fatalError("Error saving context: \(error)")
+            }
+        }
+    }
+    
+    func getPin(for annotation: MKAnnotation, completion: @escaping (Result<Pin?, Error>) -> Void) {
+        // Fetch pins based on the annotation's coordinates
+        fetchPins { result in
+            switch result {
+            case .success(let pins):
+                let pin = pins.first { pin in
+                    pin.latitude == annotation.coordinate.latitude &&
+                    pin.longitude == annotation.coordinate.longitude
+                }
+                completion(.success(pin))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
@@ -58,17 +75,6 @@ class DataControllerManager: DataControllerProtocol {
         return album
     }
     
-    func deleteImages(for album: Album) {
-        guard let id = album.id else { return }
-        let imagesToDelete = getImages(for: id) ?? []
-        
-        for image in imagesToDelete {
-            dataController.viewContext.delete(image)
-        }
-        
-        saveContext()
-    }
-    
     func fetchAlbums() -> Result<[Album], Error> {
         do {
             let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
@@ -86,18 +92,6 @@ class DataControllerManager: DataControllerProtocol {
         newImage.imageUrl = imageUrl.absoluteString
         newImage.album = album
         saveContext()
-    }
-    
-    func getImages(for albumID: UUID) -> [Image]? {
-        let fetchRequest = NSFetchRequest<Image>(entityName: "Image")
-        fetchRequest.predicate = NSPredicate(format: "album.id == %@", albumID as CVarArg)
-        
-        do {
-            return try dataController.viewContext.fetch(fetchRequest)
-        } catch {
-            print("Error fetching images: \(error)")
-            return nil
-        }
     }
     
     func fetchImages() -> Result<[Image], Error> {

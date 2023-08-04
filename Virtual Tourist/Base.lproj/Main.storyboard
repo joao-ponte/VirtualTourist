@@ -79,23 +79,6 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <view key="backgroundView" contentMode="scaleToFill" id="qq9-bS-0yw">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="352"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This locarion has no pictures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGf-PG-m8s">
-                                            <rect key="frame" x="71.666666666666686" y="164" width="250" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstItem="uGf-PG-m8s" firstAttribute="centerX" secondItem="qq9-bS-0yw" secondAttribute="centerX" id="aGE-Gi-XOA"/>
-                                        <constraint firstItem="uGf-PG-m8s" firstAttribute="centerY" secondItem="qq9-bS-0yw" secondAttribute="centerY" id="v9h-A3-RgM"/>
-                                    </constraints>
-                                </view>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="GNT-pZ-0lZ" customClass="PhotoGalleryCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
@@ -111,7 +94,7 @@
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="imageVIew" destination="aCS-E0-aas" id="jjH-pi-En7"/>
+                                            <outlet property="imageView" destination="aCS-E0-aas" id="jjH-pi-En7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -150,7 +133,6 @@
                         <outlet property="flowLayout" destination="nN7-nW-grS" id="QbW-4O-l5i"/>
                         <outlet property="mapView" destination="yCx-Ss-BMJ" id="lpD-Zk-hQo"/>
                         <outlet property="newCollectionButton" destination="Qmh-1R-pmz" id="XMJ-CO-lIQ"/>
-                        <outlet property="noImageView" destination="qq9-bS-0yw" id="6cw-VS-ZY3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aXC-3e-yBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

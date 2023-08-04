@@ -5,6 +5,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 protocol DataControllerProtocol {
     func saveContext()
@@ -12,15 +13,14 @@ protocol DataControllerProtocol {
     // MARK: - Pin Management
     func fetchPins(completion: @escaping (Result<[Pin], Error>) -> Void)
     func createPin(latitude: Double, longitude: Double) -> Pin
+    func getPin(for annotation: MKAnnotation, completion: @escaping (Result<Pin?, Error>) -> Void)
     
     // MARK: - Album Management
     func createAlbum(for pin: Pin) -> Album
-    func deleteImages(for album: Album)
     func fetchAlbums() -> Result<[Album], Error>
     
     // MARK: - Image Management
     func createImage(for album: Album, imageUrl: URL)
-    func getImages(for albumID: UUID) -> [Image]?
     func fetchImages() -> Result<[Image], Error>
     func deleteImage(_ image: Image)
     func saveImages(imageUrls: [URL], for pin: Pin)
