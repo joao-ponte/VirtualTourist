@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct PhotosResponse: Codable {
-    let photos: PhotosResult
+struct PhotoAlbum: Codable {
+    let photos: Photos
     let stat: String
 }
 

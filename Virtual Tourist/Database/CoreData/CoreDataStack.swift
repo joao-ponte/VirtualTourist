@@ -8,25 +8,19 @@
 import CoreData
 
 struct CoreDataStack {
-    
-    private let persistentContainer: NSPersistentContainer
-    
-    var viewContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
-    
-    init(modelName: String) {
-        persistentContainer = NSPersistentContainer(name: modelName)
-    }
-    
-    func load(completion: (() -> Void)? = nil) {
-        persistentContainer.loadPersistentStores { storeDescription, error in
-            guard error == nil else {
-                fatalError("Failed to load store: \(error!)")
+
+    static let context = persistentContainer.viewContext
+
+    private static let persistentContainer: NSPersistentContainer = {
+
+        let container = NSPersistentContainer(name: "VirtualTourist")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-            completion?()
-        }
-    }
+        })
+        return container
+    }()
 }
 
 

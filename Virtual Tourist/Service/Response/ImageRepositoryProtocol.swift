@@ -12,5 +12,7 @@ protocol ImageRepositoryProtocol {
                    longitude: Double,
                    pageNumber: Int,
                    completion: @escaping ([URL]?, Error?) -> Void)
+    func downloadContent(from url: URL) -> Data?
+
 }
 

@@ -5,121 +5,85 @@
 //  Created by João Ponte on 20/07/2023.
 //
 
-import Foundation
 import CoreData
-import MapKit
 
-class DataControllerManager: DataControllerProtocol {
-    
-    private let dataController: CoreDataStack
-    
-    init(modelName: String) {
-        dataController = CoreDataStack(modelName: modelName)
-        dataController.load()
-    }
-    
-    // MARK: - Pin Management
-    
-    func saveContext() {
-        if dataController.viewContext.hasChanges {
-            do {
-                try dataController.viewContext.save()
-            } catch {
-                fatalError("Error saving context: \(error)")
-            }
-        }
-    }
-    
-    func getPin(for annotation: MKAnnotation, completion: @escaping (Result<Pin?, Error>) -> Void) {
-        // Fetch pins based on the annotation's coordinates
-        fetchPins { result in
-            switch result {
-            case .success(let pins):
-                let pin = pins.first { pin in
-                    pin.latitude == annotation.coordinate.latitude &&
-                    pin.longitude == annotation.coordinate.longitude
-                }
-                completion(.success(pin))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func fetchPins(completion: @escaping (Result<[Pin], Error>) -> Void) {
-        do {
-            let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-            let pins = try dataController.viewContext.fetch(fetchRequest)
-            completion(.success(pins))
-        } catch {
-            completion(.failure(error))
-        }
+final class CoreDataManager: DataControllerProtocol {
+
+    var pins: [Pin]? { try? context.fetch(Pin.fetchRequest()) }
+    var images: [Image]?
+    private let context: NSManagedObjectContext
+
+    init(context: NSManagedObjectContext = CoreDataStack.context) {
+        self.context = context
     }
 
-    
-    func createPin(latitude: Double, longitude: Double) -> Pin {
-        let newPin = Pin(context: dataController.viewContext)
+    func createPin(latitude: Double, longitude: Double) {
+        let newPin = Pin(context: context)
         newPin.latitude = latitude
         newPin.longitude = longitude
-        saveContext()
-        return newPin
+        save()
     }
-    
-    // MARK: - Album Management
-    
-    func createAlbum(for pin: Pin) -> Album {
-        let album = Album(context: dataController.viewContext)
-        album.id = UUID()
-        album.pin = pin
-        saveContext()
-        return album
-    }
-    
-    func fetchAlbums() -> Result<[Album], Error> {
+
+    func getImage(at path: String) -> Data? {
         do {
-            let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
-            let albums = try dataController.viewContext.fetch(fetchRequest)
-            return .success(albums)
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Image")
+            fetchRequest.predicate = NSPredicate(format: "url == %@", path)
+            return (try context.fetch(fetchRequest) as? [Image])?.first?.blob
         } catch {
-            return .failure(error)
+            return nil
         }
     }
-    
-    // MARK: - Image Management
-    
-    func createImage(for album: Album, imageUrl: URL) {
-        let newImage = Image(context: dataController.viewContext)
-        newImage.imageUrl = imageUrl.absoluteString
-        newImage.album = album
-        saveContext()
+
+    func getImages(from albumID: UUID) -> [Image]? {
+       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Image")
+        fetchRequest.predicate = NSPredicate(format: "album.id == %@", albumID.uuidString)
+        return try? context.fetch(fetchRequest) as? [Image]
     }
-    
-    func fetchImages() -> Result<[Image], Error> {
-        do {
-            let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
-            let images = try dataController.viewContext.fetch(fetchRequest)
-            return .success(images)
-        } catch {
-            return .failure(error)
+
+    func createImage(for album: Album, blob: Data, url: String, id: Int64) {
+        context.performAndWait {
+            let newImage = Image(context: context)
+            newImage.blob = blob
+            newImage.url = url
+            newImage.id = id
+            album.addToImages(newImage)
+            save()
         }
     }
-    
+
+    func deleteImages(from album: Album) {
+        guard let id = album.id else { return }
+        let imagesToDelete = getImages(from: id)
+
+        imagesToDelete?.forEach({ image in
+            context.delete(image)
+        })
+
+        save()
+    }
+
     func deleteImage(_ image: Image) {
-        dataController.viewContext.delete(image)
-        saveContext()
+        context.delete(image)
+        save()
     }
-    
-    func saveImages(imageUrls: [URL], for pin: Pin) {
-        let album = pin.album ?? createAlbum(for: pin)
-        for imageUrl in imageUrls {
-            createImage(for: album, imageUrl: imageUrl)
+
+    // MARK: - Helper functions
+    private func createPhotoAlbum(pin: Pin) {
+        context.performAndWait {
+            let newAlbum = Album(context: context)
+            newAlbum.id = UUID()
+            newAlbum.pin = pin
         }
-        saveContext()
     }
-    
-    func load(completion: (() -> Void)?) {
-        dataController.load {
-            completion?()
+
+    func save() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Can not save context \(nserror), \(nserror.userInfo)")
+            }
         }
     }
 }
