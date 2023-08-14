@@ -11,8 +11,7 @@ protocol ImageRepositoryProtocol {
     func getImages(latitude: Double,
                    longitude: Double,
                    pageNumber: Int,
-                   completion: @escaping ([URL]?, Error?) -> Void)
+                   completion: @escaping (Result<Photos, NetworkError>) -> Void)
     func downloadContent(from url: URL) -> Data?
-
 }
 

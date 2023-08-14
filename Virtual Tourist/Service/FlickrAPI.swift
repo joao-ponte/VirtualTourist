@@ -43,33 +43,25 @@ class FlickrAPI: ImageRepositoryProtocol {
     func getImages(latitude: Double,
                    longitude: Double,
                    pageNumber: Int,
-                   completion: @escaping ([URL]?, Error?) -> Void) {
+                   completion: @escaping (Result<Photos, NetworkError>) -> Void) {
         let endpoint = FlickrAPI.EndPoints.getGeoPhotos(latitude: latitude, longitude: longitude, pageNumber: pageNumber)
         let url = endpoint.url
-        client.taskForGetRequest(url: url, response: PhotosResponse.self) { [weak self] (response, error) in
+        client.taskForGetRequest(url: url, response: PhotoAlbum.self) { (photoAlbum, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    completion(nil, error)
+                    completion(.failure(.badURL))
+                } else if let photoAlbum = photoAlbum {
+                    completion(.success(photoAlbum.photos))
                 } else {
-                    let imageUrls = self?.extractImageUrls(from: response) ?? []
-                    completion(imageUrls, nil)
-                    print("TEST IF I CREATE THE URL ARRAY🤯 \(imageUrls) ")
+                    completion(.failure(.serviceError))
                 }
             }
         }
     }
-
-        private func extractImageUrls(from photosResponse: PhotosResponse?) -> [URL] {
-            guard let photosResponse = photosResponse else {
-                return []
-            }
-            
-            let imageUrls = photosResponse.photos.photo.compactMap { photo in
-                return photo.imageUrl
-            }
-            
-            return imageUrls
-        }
+    
+    func downloadContent(from url: URL) -> Data? {
+        try? Data(contentsOf: url)
+    }
     
 }
 
