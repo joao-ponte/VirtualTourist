@@ -9,16 +9,9 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    var dataControllerManager: DataControllerManager!
-    var coreDataPrintViewModel: CoreDataPrintViewModel!
-    
-    
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        dataControllerManager = DataControllerManager(modelName: "VirtualTourist")
-        coreDataPrintViewModel = CoreDataPrintViewModel(dataControllerManager: dataControllerManager)
-        coreDataPrintViewModel.printCoreDataContents()
         return true
     }
     

@@ -8,121 +8,62 @@
 import Foundation
 import MapKit
 
-protocol TravelLocationViewModelDelegate: AnyObject {
-    func addAnnotation(_ annotation: MKPointAnnotation)
-    func reloadMapAnnotations(_ annotations: [MKPointAnnotation])
-}
-
-final class TravelLocationViewModel {
+class TravelLocationViewModel {
     
-    weak var delegate: TravelLocationViewModelDelegate?
+    let userDefaults: UserDefaultsProtocol
+    private let database: DataControllerProtocol
     private let imageRepository: ImageRepositoryProtocol
-    private let dataControllerManager: DataControllerProtocol
+    var pins: [(latitude: Double, longitude: Double)]? {
+        database.pins?.compactMap { (latitude: $0.latitude, longitude: $0.longitude) }
+    }
     
-    // Injection of FlickrAPI in the viewModel, using default parameter.
-    init(dataControllerManager: DataControllerProtocol, imageRepository: ImageRepositoryProtocol = FlickrAPI()) {
-        self.dataControllerManager = dataControllerManager
+    let zoomLevel: MKCoordinateSpan
+    let center: CLLocationCoordinate2D
+    private let londonLat = 51.5072
+    private let LondonLon = 0.1276
+    
+    init(database: DataControllerProtocol, imageRepository: ImageRepositoryProtocol = FlickrAPI(), userDefaults: UserDefaultsProtocol = UserDataDefaults()) {
+        self.database = database
         self.imageRepository = imageRepository
-    }
-    
-    // Create a mutable array to hold the pins
-    private var mutablePins: [MKPointAnnotation] = []
-    
-    // Expose the pins as a read-only property
-    var pins: [MKPointAnnotation] {
-        return mutablePins
-    }
-    
-    private(set) var pinObjects: [Pin] = []
-    
-    
-    func newAlbumAtLocation(at coordinate: CLLocationCoordinate2D) {
-        // Create a new Pin object
-        let newPin = dataControllerManager.createPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        pinObjects.append(newPin) // Add the actual Pin object to the pinObjects array
+        self.userDefaults = userDefaults
         
-        // Fetch the images
-        getImagesFromFlickr(latitude: coordinate.latitude, longitude: coordinate.longitude) { [weak self] result in
-            switch result {
-            case .success(let imageUrls):
-                // Call the createAlbumWithImages method with the newPin and imageUrls
-                self?.createAlbumWithImages(newPin, imageUrls: imageUrls)
-            case .failure(let error):
-                // Handle the error if needed
-                print("Error fetching images: \(error)")
-            }
-        }
-        
-        // Update the pins array used for display on the map
-        let newAnnotation = createAnnotation(for: coordinate)
-        mutablePins.append(newAnnotation)
-        delegate?.addAnnotation(newAnnotation)
-    }
-    
-    private func createAlbumWithImages(_ pin: Pin, imageUrls: [URL]) {
-        // Save the imageUrls to the data model (if needed).
-        // For example, you can store them in the `Pin` model.
-        // pin.imageUrls = imageUrls
-        
-        // Create an album
-        let album = dataControllerManager.createAlbum(for: pin)
-        
-        // Save the image URLs to the album
-        for imageUrl in imageUrls {
-            dataControllerManager.createImage(for: album, imageUrl: imageUrl)
-        }
-        
-        // Reload pins (if needed)
-        loadPins()
-    }
-    
-    private func loadPins() {
-        mutablePins = pinObjects.map { pin in
-            createAnnotation(for: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
-        }
-        delegate?.reloadMapAnnotations(mutablePins)
-    }
-    
-    func getImagesFromFlickr(latitude: Double, longitude: Double, completion: @escaping (Result<[URL], Error>) -> Void) {
-        imageRepository.getImages(latitude: latitude, longitude: longitude, pageNumber: 2) { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let imageUrls = result {
-                // At this point, you have an array of `URL` objects (imageUrls).
-                // Do whatever you want with this array of URLs.
-                // For example, you can use it to display images in your UI.
-                completion(.success(imageUrls))
-            } else {
-                // If there are no images, you'll receive an empty array.
-                // Handle this case as needed.
-                completion(.success([]))
-            }
+        let latitude = userDefaults.readDouble(forKey: "latitude")
+        let longitude = userDefaults.readDouble(forKey: "longitude")
+        let latDelta = userDefaults.readDouble(forKey: "latitudeDelta")
+        let longDelta = userDefaults.readDouble(forKey: "longitudeDelta")
+
+        if userDefaults.readBool(forKey: "locationHasBeenLoaded") {
+            zoomLevel = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+            center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+
+        } else {
+            zoomLevel = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+            center = CLLocationCoordinate2D(latitude: londonLat, longitude: LondonLon)
         }
     }
-    
-    private func createAnnotation(for coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        return annotation
+    // MARK: - User Defaults
+    func saveLocationHasBeenLoaded() {
+        userDefaults.write(true, forKey: "locationHasBeenLoaded")
     }
-}
-extension TravelLocationViewModel {
     
-    func fetchSavedPins() {
-        dataControllerManager.fetchPins { [weak self] result in
-            switch result {
-            case .success(let pins):
-                self?.pinObjects = pins
-                self?.loadPins() // Update the map with fetched pins
-            case .failure(let error):
-                // Handle the error if needed
-                print("Error fetching pins: \(error)")
-            }
-        }
+    private func saveCenterPreferences(latitude: Double, longitude: Double) {
+        userDefaults.write(latitude, forKey: "latitude")
+        userDefaults.write(longitude, forKey: "longitude")
     }
+    
+    private func saveSpanPreferences(latitudeDelta: Double, longitudeDelta: Double) {
+        userDefaults.write(latitudeDelta, forKey: "latitudeDelta")
+        userDefaults.write(longitudeDelta, forKey: "longitudeDelta")
+    }
+    
+    func saveLastPosition(region: MKCoordinateRegion) {
+
+        saveCenterPreferences(latitude: region.center.latitude,
+                              longitude: region.center.longitude)
+        saveSpanPreferences(latitudeDelta: region.span.latitudeDelta,
+                            longitudeDelta: region.span.longitudeDelta)
+    }
+
 }
 
 
