@@ -7,7 +7,7 @@
 
 import CoreData
 
-final class CoreDataManager: DataControllerProtocol {
+final class DataControllerManager: DataControllerProtocol {
 
     var pins: [Pin]? { try? context.fetch(Pin.fetchRequest()) }
     var images: [Image]?

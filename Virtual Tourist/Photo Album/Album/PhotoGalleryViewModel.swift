@@ -10,12 +10,5 @@ import MapKit
 
 class PhotoGalleryViewModel {
     
-    var selectedCoordinate: CLLocationCoordinate2D?
-
 }
-
-
-
-
-
 

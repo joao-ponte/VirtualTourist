@@ -8,126 +8,99 @@
 import UIKit
 import MapKit
 
-class TravelLocationViewController: UIViewController {
-    
+final class TravelLocationViewController: UIViewController {
+
     @IBOutlet weak var mapView: MKMapView!
+
     var viewModel: TravelLocationViewModel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let dataControllerManager = DataControllerManager(modelName: "VirtualTourist")
-        viewModel = TravelLocationViewModel(dataControllerManager: dataControllerManager)
-        viewModel.delegate = self // Assign the delegate to receive updates
-        
-        setupMap()
-        setupMapGesture()
-        viewModel.fetchSavedPins()
-    }
-}
 
-// MARK: - TravelLocationViewModelDelegate
-extension TravelLocationViewController: TravelLocationViewModelDelegate {
-    func addAnnotation(_ annotation: MKPointAnnotation) {
-        mapView.addAnnotation(annotation)
+        mapView.region.center = viewModel.center
+        mapView.region.span = viewModel.zoomLevel
+        viewModel.saveLocationHasBeenLoaded()
+        setMapView()
     }
-    
-    func reloadMapAnnotations(_ annotations: [MKPointAnnotation]) {
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(annotations)
-    }
-}
 
-// MARK: - Private Helpers
-private extension TravelLocationViewController {
-    func setupMap() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navBarAppears(false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navBarAppears(true)
+        viewModel.saveLastPosition(region: mapView.region)
+    }
+
+    // MARK: - MapView
+
+    private func setMapView() {
         mapView.delegate = self
-    }
-    
-    func setupMapGesture() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        longPressGesture.minimumPressDuration = 0.5
-        mapView.addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            handleLongPressBegan(gestureRecognizer)
-        }
-    }
-    
-    func handleLongPressBegan(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        let touchPoint = gestureRecognizer.location(in: mapView)
-        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        
-        addPin(at: coordinate)
-    }
-    
-    func addPin(at coordinate: CLLocationCoordinate2D) {
-        viewModel.newAlbumAtLocation(at: coordinate)
-        addPinToMap(at: coordinate)
-        
-    }
-    
-    func addPinToMap(at coordinate: CLLocationCoordinate2D) {
-        let newPin = MKPointAnnotation()
-        newPin.coordinate = coordinate
-        mapView.addAnnotation(newPin)
-    }
-    
-    func populateMapWithSavedPins() {
-        mapView.removeAnnotations(mapView.annotations) // Clear existing pins before adding saved pins
-        mapView.addAnnotations(viewModel.pins)
-    }
-}
 
-extension TravelLocationViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        mapView.deselectAnnotation(view.annotation, animated: true)
-        if let annotation = view.annotation as? MKPointAnnotation {
-            performSegue(withIdentifier: "toPhotoAlbum", sender: annotation)
+        if let pins = viewModel.pins {
+            var annotations: [MKAnnotation] = []
+            pins.forEach { pin in
+                let coordinate = CLLocationCoordinate2D(latitude: pin.latitude,
+                                                        longitude: pin.longitude)
+                annotations.append(viewModel.createAnnotation(coordinate: coordinate))
+            }
+            mapView.addAnnotations(annotations)
         }
-    }
-}
 
-// MARK: - Prepare for Segue
-extension TravelLocationViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toPhotoAlbum",
-            let destinationVC = segue.destination as? PhotoGalleryViewController,
-            let annotation = sender as? MKPointAnnotation {
-            destinationVC.selectedCoordinate = annotation.coordinate
+        let longPress = UILongPressGestureRecognizer(target: self,
+                                                     action: #selector(longPressAction(gestureRecognizer:)))
+        mapView.addGestureRecognizer(longPress)
+    }
+
+    @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == UILongPressGestureRecognizer.State.ended {
+            let touchLocation = gestureRecognizer.location(in: mapView)
+
+            // convert CGPoint to CLLocationCoordinate2D
+            let coordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+            viewModel.plotNewPin(coordinate: coordinate,
+                                 mapView: mapView)
         }
     }
-}
-//extension TravelLocationViewController {
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "toPhotoAlbum",
-    //            let destinationVC = segue.destination as? PhotoGalleryViewController,
-    //            let annotation = sender as? MKPointAnnotation {
-    //            let photoGalleryViewModel = PhotoGalleryViewModel()
-    //            photoGalleryViewModel.selectedCoordinate = annotation.coordinate
-    //            destinationVC.viewModel = photoGalleryViewModel
-    //        }
-    //    }
-//    extension TravelLocationViewController {
-//        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//            if segue.identifier == "toPhotoAlbum",
-//                let destinationNavigationVC = segue.destination as? UINavigationController,
-//                let destinationVC = destinationNavigationVC.topViewController as? PhotoGalleryViewController,
-//                let annotation = sender as? MKPointAnnotation {
-//                let photoGalleryViewModel = PhotoGalleryViewModel()
-//                photoGalleryViewModel.selectedCoordinate = annotation.coordinate
-//                destinationVC.viewModel = photoGalleryViewModel
-//            }
+    // MARK: - Photo Album View Model
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toPhotoAlbum" {
+//            guard
+//                let destination = segue.destination as? PhotoAlbumViewController,
+//                let annotationView = sender as? MKAnnotationView,
+//                let annotation = annotationView.annotation
+//            else { return }
+//            destination.viewModel = viewModel.makePhotoAlbumViewModel(coordinate: annotation.coordinate)
 //        }
 //    }
+}
+// MARK: - Map View Delegate
+extension TravelLocationViewController: MKMapViewDelegate {
 
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
+        performSegue(withIdentifier: "toPhotoAlbum", sender: view)
+    }
+}
 
+// MARK: - Helpers
+extension TravelLocationViewController {
+    private func navBarAppears(_ isVisible: Bool) {
+        navigationController?.setNavigationBarHidden(!isVisible,
+                                                     animated: false)
+    }
+}
 
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
