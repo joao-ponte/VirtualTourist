@@ -21,7 +21,7 @@ class PhotoGalleryDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell",
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell",
                                                             for: indexPath) as? PhotoGalleryCell else {
             fatalError("error🥸: collectionViewCell is not a type PhotoGalleryCell")
         }
