@@ -87,6 +87,17 @@ class TravelLocationViewModel {
             pin.latitude == coordinate.latitude && pin.longitude == coordinate.longitude
         })
     }
+    
+    // MARK: - Navigation
+    func makePhotoGalleryViewModel(coordinate: CLLocationCoordinate2D) -> PhotoGalleryViewModel {
+        guard let pin = findPin(at: coordinate),
+              let album = pin.album else { fatalError("Sorry, can't find pin") }
+        return PhotoGalleryViewModel(photoAlbum: album,
+                                     service: FlickrAPI(),
+                                     database: database,
+                                     latitude: coordinate.latitude,
+                                     longitude: coordinate.longitude)
+    }
 }
 
 
