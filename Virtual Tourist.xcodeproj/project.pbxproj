@@ -29,6 +29,8 @@
 		FCC600DD2A8A1C3500CD2E67 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC600DC2A8A1C3500CD2E67 /* NetworkError.swift */; };
 		FCC600E02A8A72FB00CD2E67 /* UserDataDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC600DF2A8A72FB00CD2E67 /* UserDataDefaults.swift */; };
 		FCC600E22A8A732100CD2E67 /* UserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC600E12A8A732100CD2E67 /* UserDefaultsProtocol.swift */; };
+		FCD4627E2A8E14B4007544FC /* PhotoGalleryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD4627D2A8E14B4007544FC /* PhotoGalleryDelegate.swift */; };
+		FCD462802A8E26D3007544FC /* PhotoAlbumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD4627F2A8E26D3007544FC /* PhotoAlbumStatus.swift */; };
 		FCF21C5D2A6FC038006587B9 /* PhotoGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF21C5C2A6FC038006587B9 /* PhotoGalleryCell.swift */; };
 		FCF21C5F2A6FCACF006587B9 /* PhotoGalleryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF21C5E2A6FCACF006587B9 /* PhotoGalleryDataSource.swift */; };
 		FCF21C622A6FD11B006587B9 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF21C612A6FD11B006587B9 /* FlickrAPI.swift */; };
@@ -71,6 +73,8 @@
 		FCC600DC2A8A1C3500CD2E67 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		FCC600DF2A8A72FB00CD2E67 /* UserDataDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataDefaults.swift; sourceTree = "<group>"; };
 		FCC600E12A8A732100CD2E67 /* UserDefaultsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsProtocol.swift; sourceTree = "<group>"; };
+		FCD4627D2A8E14B4007544FC /* PhotoGalleryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryDelegate.swift; sourceTree = "<group>"; };
+		FCD4627F2A8E26D3007544FC /* PhotoAlbumStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumStatus.swift; sourceTree = "<group>"; };
 		FCF21C5C2A6FC038006587B9 /* PhotoGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCell.swift; sourceTree = "<group>"; };
 		FCF21C5E2A6FCACF006587B9 /* PhotoGalleryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryDataSource.swift; sourceTree = "<group>"; };
 		FCF21C612A6FD11B006587B9 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				FC25DB342A692E0A00EE351F /* CoreDataStack.swift */,
 				FC25DB362A69362500EE351F /* DataControllerManager.swift */,
 				FCBC2B642A6820CF002925BD /* VirtualTourist.xcdatamodeld */,
+				FCD4627F2A8E26D3007544FC /* PhotoAlbumStatus.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 			children = (
 				FCF21C5C2A6FC038006587B9 /* PhotoGalleryCell.swift */,
 				FCF21C5E2A6FCACF006587B9 /* PhotoGalleryDataSource.swift */,
+				FCD4627D2A8E14B4007544FC /* PhotoGalleryDelegate.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -347,11 +353,13 @@
 				FC25DB4E2A69717B00EE351F /* PhotoGalleryViewModel.swift in Sources */,
 				FCBC2B662A6820CF002925BD /* VirtualTourist.xcdatamodeld in Sources */,
 				FCC600E22A8A732100CD2E67 /* UserDefaultsProtocol.swift in Sources */,
+				FCD462802A8E26D3007544FC /* PhotoAlbumStatus.swift in Sources */,
 				FCF21C642A6FD3FA006587B9 /* HttpClient.swift in Sources */,
 				FCBC2B4E2A66E561002925BD /* SceneDelegate.swift in Sources */,
 				FCA5074A2A73BF5F00359993 /* HttpClientProtocol.swift in Sources */,
 				FCF21C5F2A6FCACF006587B9 /* PhotoGalleryDataSource.swift in Sources */,
 				FCC600E02A8A72FB00CD2E67 /* UserDataDefaults.swift in Sources */,
+				FCD4627E2A8E14B4007544FC /* PhotoGalleryDelegate.swift in Sources */,
 				FCA5074E2A77C76200359993 /* DataControllerProtocol.swift in Sources */,
 				FCA507482A71540400359993 /* ImageRepositoryProtocol.swift in Sources */,
 				FCF21C5D2A6FC038006587B9 /* PhotoGalleryCell.swift in Sources */,

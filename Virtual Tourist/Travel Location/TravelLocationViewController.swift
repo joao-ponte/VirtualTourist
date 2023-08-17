@@ -16,7 +16,8 @@ final class TravelLocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        viewModel = TravelLocationViewModel()
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
         viewModel.saveLocationHasBeenLoaded()
@@ -68,16 +69,16 @@ final class TravelLocationViewController: UIViewController {
     }
     // MARK: - Photo Album View Model
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toPhotoAlbum" {
-//            guard
-//                let destination = segue.destination as? PhotoAlbumViewController,
-//                let annotationView = sender as? MKAnnotationView,
-//                let annotation = annotationView.annotation
-//            else { return }
-//            destination.viewModel = viewModel.makePhotoAlbumViewModel(coordinate: annotation.coordinate)
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPhotoAlbum" {
+            guard
+                let destination = segue.destination as? PhotoGalleryViewController,
+                let annotationView = sender as? MKAnnotationView,
+                let annotation = annotationView.annotation
+            else { return }
+            destination.viewModel = viewModel.makePhotoAlbumViewModel(coordinate: annotation.coordinate)
+        }
+    }
 }
 // MARK: - Map View Delegate
 extension TravelLocationViewController: MKMapViewDelegate {

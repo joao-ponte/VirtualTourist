@@ -21,6 +21,7 @@ final class DataControllerManager: DataControllerProtocol {
         let newPin = Pin(context: context)
         newPin.latitude = latitude
         newPin.longitude = longitude
+        createPhotoAlbum(status: .notStarted, pin: newPin)
         save()
     }
 
@@ -50,6 +51,11 @@ final class DataControllerManager: DataControllerProtocol {
             save()
         }
     }
+    
+    func changeStatus(of album: Album, to status: PhotoAlbumStatus) {
+        album.status = status.rawValue
+        save()
+    }
 
     func deleteImages(from album: Album) {
         guard let id = album.id else { return }
@@ -68,10 +74,11 @@ final class DataControllerManager: DataControllerProtocol {
     }
 
     // MARK: - Helper functions
-    private func createPhotoAlbum(pin: Pin) {
+    private func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin) {
         context.performAndWait {
             let newAlbum = Album(context: context)
             newAlbum.id = UUID()
+            newAlbum.status = status.rawValue
             newAlbum.pin = pin
         }
     }

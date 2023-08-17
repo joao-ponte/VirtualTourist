@@ -79,6 +79,25 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <view key="backgroundView" contentMode="scaleToFill" id="kSy-Vy-qb5">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="352"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This location has no pictures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNV-gr-h2j">
+                                            <rect key="frame" x="80" y="166" width="232" height="21"/>
+                                            <color key="backgroundColor" red="0.31227171970527201" green="0.74694476828789291" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" red="0.55240288148736894" green="1" blue="0.85644791078446647" alpha="0.64472243008466834" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="YNV-gr-h2j" firstAttribute="centerY" secondItem="kSy-Vy-qb5" secondAttribute="centerY" id="bM3-JN-fvU"/>
+                                        <constraint firstItem="YNV-gr-h2j" firstAttribute="centerX" secondItem="kSy-Vy-qb5" secondAttribute="centerX" id="lGY-W1-gnd"/>
+                                    </constraints>
+                                </view>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="GNT-pZ-0lZ" customClass="PhotoGalleryCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
@@ -107,9 +126,6 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="New Collection"/>
-                                <connections>
-                                    <action selector="createNewCollection:" destination="HWL-c3-CSa" eventType="touchUpInside" id="ssO-C3-H3p"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Y0d-Kc-ReB"/>
@@ -132,7 +148,8 @@
                         <outlet property="collectionView" destination="UbR-vV-4sg" id="RMn-Yc-iUl"/>
                         <outlet property="flowLayout" destination="nN7-nW-grS" id="QbW-4O-l5i"/>
                         <outlet property="mapView" destination="yCx-Ss-BMJ" id="lpD-Zk-hQo"/>
-                        <outlet property="newCollectionButton" destination="Qmh-1R-pmz" id="XMJ-CO-lIQ"/>
+                        <outlet property="newCollectionButton" destination="Qmh-1R-pmz" id="rkg-7a-qa7"/>
+                        <outlet property="noImageView" destination="kSy-Vy-qb5" id="OB4-WI-bjs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aXC-3e-yBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
