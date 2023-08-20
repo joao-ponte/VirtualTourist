@@ -30,7 +30,7 @@ class FlickrAPI: ImageRepositoryProtocol {
                     "&lat=\(latitude)" +
                     "&lon=\(longitude)" +
                     "&page=\(pageNumber)" +
-                    "&per_page=18" +
+                    "&per_page=24" +
                     "&format=json&nojsoncallback=1"
             }
         }
@@ -59,9 +59,22 @@ class FlickrAPI: ImageRepositoryProtocol {
         }
     }
     
-    func downloadContent(from url: URL) -> Data? {
-        try? Data(contentsOf: url)
+    func downloadContent(from url: URL, completion: @escaping (Data?) -> Void) {
+        let session = URLSession.shared
+        let task = session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if let data = data {
+                completion(data)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
     }
-    
 }
 

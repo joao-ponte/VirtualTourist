@@ -12,8 +12,8 @@ struct Photo: Codable {
     let secret: String
     let server: String
     
-    var imageUrl: URL? {
+    var imageUrlString: String? {
         let urlString = "https://live.staticflickr.com/\(server)/\(id)_\(secret)_m.jpg"
-        return URL(string: urlString)
+        return urlString
     }
 }

@@ -120,28 +120,38 @@ class PhotoGalleryViewModel {
         changeAlbumStatus(to: .downloading)
         let imagesInAlbum = cachedImages.map { $0.id }
         
+        let downloadGroup = DispatchGroup()
+        
         photosFromAPI.forEach { photo in
-            guard let id = Int64(photo.id) else { return }
+            guard let id = Int64(photo.id), let urlString = photo.imageUrlString else { return }
             
             if imagesInAlbum.contains(id) {
                 self.reloadView?()
             } else {
-                let imageName = getImageName(from: photo)
-                guard let url = URL(string: imageName),
-                      let data = service.downloadContent(from: url) else {
+                guard let url = URL(string: urlString) else {
                     completion(.failure(NSError(domain: "🤯", code: 24)))
                     return
                 }
-                self.database.createImage(for: self.album,
-                                          blob: data,
-                                          url: imageName,
-                                          id: id)
-                self.reloadView?()
+                downloadGroup.enter()
+                
+                service.downloadContent(from: url) { data in
+                    if let data = data {
+                        self.database.createImage(for: self.album,
+                                                  blob: data,
+                                                  url: urlString,
+                                                  id: id)
+                    }
+                    downloadGroup.leave()
+                }
             }
         }
-        changeAlbumStatus(to: .done)
-        completion(.success(()))
+        downloadGroup.notify(queue: .main) {
+            self.changeAlbumStatus(to: .done)
+            self.reloadView?()
+            completion(.success(()))
+        }
     }
+    
     // MARK: - Album
     func createNewCollection() {
         database.deleteImages(from: album)
@@ -153,10 +163,6 @@ class PhotoGalleryViewModel {
         fetchPhotos()
     }
     // MARK: - Helper methods
-    private func getImageName(from photo: Photo) -> String {
-        "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
-    }
-    
     private func changeAlbumStatus(to status: PhotoAlbumStatus) {
         
         database.changeStatus(of: album, to: status)
