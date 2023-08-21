@@ -7,7 +7,7 @@
         <relationship name="pin" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Pin" inverseName="album" inverseEntity="Pin"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
-        <attribute name="blob" optional="YES" attributeType="Binary"/>
+        <attribute name="blob" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="images" inverseEntity="Album"/>
