@@ -129,7 +129,7 @@ class PhotoGalleryViewModel {
                 self.reloadView?()
             } else {
                 guard let url = URL(string: urlString) else {
-                    completion(.failure(NSError(domain: "🤯", code: 24)))
+                    completion(.failure(NSError(domain: "🥸", code: 24)))
                     return
                 }
                 downloadGroup.enter()
