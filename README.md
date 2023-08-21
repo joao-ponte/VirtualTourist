@@ -6,11 +6,11 @@ Welcome to Virtual Tourist – your passport to exploring the world through phot
 
 
 
-## User Storie
+## User Story
 
 
 
-```bash
+```
 As a user of the Virtual Tourist app, 
 I want to drop pins on the map to mark interesting spots, 
 view photos associated with each pinned location, 
