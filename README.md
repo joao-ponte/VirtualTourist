@@ -26,7 +26,7 @@ To install and set up Virtual Tourist, follow these steps:
 - Build and run the app on a simulator or a physical device running iOS 16.3 or higher.
 
 ## Usage Instructions
-To use the On The Map app, follow these steps:
+To use the Virtual Tourist app, follow these steps:
 - Launch the app on your iOS device.
 
 - Explore the Map: When you open the app, you'll find yourself on a map interface. Use familiar pinch and swipe gestures to zoom in, zoom out, and pan around. This is your canvas for marking and discovering new locations.
