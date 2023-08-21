@@ -12,10 +12,10 @@ Welcome to Virtual Tourist – your passport to exploring the world through phot
 
 ```bash
 As a user of the Virtual Tourist app, 
-I want to be able to explore different locations on a map, 
-drop pins on the map to mark interesting spots, 
+I want to drop pins on the map to mark interesting spots, 
 view photos associated with each pinned location, 
 and have the ability to refresh the photos collection for each location.
+So that I'll be able to explore different locations on a map.
 ```
 
 
@@ -78,7 +78,6 @@ The Virtual Tourist app is built using the following technologies and tools:
 
 - UIKit Components: The app uses various UIKit components, such as buttons, collection views, and map views, to create a cohesive user experience.
 ## Screenshots
-## Authors
 
 - [@Joao Ponte](https://www.linkedin.com/in/jponte/)
 
