@@ -96,12 +96,3 @@ extension TravelLocationViewController {
                                                      animated: false)
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    

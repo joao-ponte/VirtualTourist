@@ -99,8 +99,3 @@ class TravelLocationViewModel {
                                      longitude: coordinate.longitude)
     }
 }
-
-
-
-
-

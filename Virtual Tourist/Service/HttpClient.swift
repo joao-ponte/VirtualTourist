@@ -34,4 +34,3 @@ class HttpClient: HttpClientProtocol {
         task.resume()
     }
 }
-

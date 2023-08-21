@@ -22,6 +22,3 @@ struct CoreDataStack {
         return container
     }()
 }
-
-
-

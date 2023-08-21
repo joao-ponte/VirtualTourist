@@ -77,4 +77,3 @@ class FlickrAPI: ImageRepositoryProtocol {
         task.resume()
     }
 }
-
