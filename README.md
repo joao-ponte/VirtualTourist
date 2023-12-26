@@ -78,6 +78,7 @@ The Virtual Tourist app is built using the following technologies and tools:
 
 - UIKit Components: The app uses various UIKit components, such as buttons, collection views, and map views, to create a cohesive user experience.
 ## Screenshots
+![Vitual Tourism](https://github.com/joao-ponte/VirtualTourist/assets/114771106/a9ba52dd-9558-4994-888a-568df42bd0dc)
 
 - [@Joao Ponte](https://www.linkedin.com/in/jponte/)
 
